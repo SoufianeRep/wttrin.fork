@@ -29,7 +29,7 @@ geo:
         - name: opencage
           type: opencage
           url: https://api.opencagedata.com/geocode/v1/json
-          token: "ab37382ca71f43398f7761ff930dd102"
+          token: "TOKEN"
 
 weather:
   wwo:
