@@ -91,6 +91,8 @@ func staticFilesHandler(w http.ResponseWriter, r *http.Request) {
 		contentType = "image/x-icon"
 	case ".html":
 		contentType = "text/html; charset=utf-8"
+	case ".mp4":
+		contentType = "video/mp4"
 	}
 
 	w.Header().Set("Content-Type", contentType)
@@ -254,7 +256,7 @@ func Serve(conf *Config, logConf *logging.Config, ws *weather.WeatherService) er
 	mux.HandleFunc("/", panicRecovery(mainHandler(ws, logger)))
 	mux.HandleFunc("/favicon.ico", panicRecovery(faviconHandler))
 	mux.HandleFunc("/files/", panicRecovery(staticFilesHandler))
-	mux.HandleFunc("/html/", panicRecovery(htmlPageHandler))
+	mux.HandleFunc("/html/", panicRecovery(newHTMLPageHandler(ws)))
 
 	if conf.PortHTTP != 0 {
 		go serveHTTP(mux, conf.PortHTTP, errorsLog, errs)
