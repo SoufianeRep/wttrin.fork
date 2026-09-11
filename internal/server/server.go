@@ -254,6 +254,7 @@ func Serve(conf *Config, logConf *logging.Config, ws *weather.WeatherService) er
 	mux.HandleFunc("/", panicRecovery(mainHandler(ws, logger)))
 	mux.HandleFunc("/favicon.ico", panicRecovery(faviconHandler))
 	mux.HandleFunc("/files/", panicRecovery(staticFilesHandler))
+	mux.HandleFunc("/html/", panicRecovery(htmlPageHandler))
 
 	if conf.PortHTTP != 0 {
 		go serveHTTP(mux, conf.PortHTTP, errorsLog, errs)
